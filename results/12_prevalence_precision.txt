@@ -1,0 +1,23 @@
+# Benchmark accuracy is not screening precision
+  benchmark prevalence: 0.489
+
+  published folds  | default cut (p=0.5)                sens=0.671 spec=0.780
+      PPV by prevalence: pi=0.50->0.75  pi=0.20->0.43  pi=0.10->0.25  pi=0.05->0.14  pi=0.02->0.06  pi=0.01->0.03
+  published folds  | high-specificity cut (sens>=0.50)  sens=0.504 spec=0.898
+      PPV by prevalence: pi=0.50->0.83  pi=0.20->0.55  pi=0.10->0.35  pi=0.05->0.21  pi=0.02->0.09  pi=0.01->0.05
+
+  source-disjoint  | default cut (p=0.5)                sens=0.642 spec=0.771
+      PPV by prevalence: pi=0.50->0.74  pi=0.20->0.41  pi=0.10->0.24  pi=0.05->0.13  pi=0.02->0.05  pi=0.01->0.03
+  source-disjoint  | high-specificity cut (sens>=0.50)  sens=0.502 spec=0.884
+      PPV by prevalence: pi=0.50->0.81  pi=0.20->0.52  pi=0.10->0.33  pi=0.05->0.19  pi=0.02->0.08  pi=0.01->0.04
+
+## For the manuscript (source-disjoint, default cut)
+  prevalence 50%  ->  PPV 0.74  (74 true actives per 100 positive calls)
+  prevalence 10%  ->  PPV 0.24  (24 true actives per 100 positive calls)
+  prevalence 5%  ->  PPV 0.13  (13 true actives per 100 positive calls)
+
+  Sensitivity and specificity are properties of the classifier; PPV is not.
+  The same model that looks usable on a balanced benchmark is a weak filter
+  in a pool where actives are rare -- and this calculation still assumes the
+  classifier's sensitivity and specificity transfer unchanged to that pool,
+  which our source-disjoint result suggests is itself optimistic.

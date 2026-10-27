@@ -1,0 +1,21 @@
+# Composition baseline against all nine published models
+(published values read from the source article HTML; AUC in per cent)
+
+split               baseline ACC               baseline AUC
+  P60    72.65 [70.23, 75.00]      80.58 [78.28, 82.81]
+  P70    75.78 [73.50, 78.06]      82.55 [80.35, 84.64]
+  P80    74.36 [72.01, 76.64]      82.19 [79.99, 84.33]
+  P90    75.43 [73.08, 77.64]      82.59 [80.42, 84.70]
+
+## Per-split ranking
+  P60: baseline ACC 72.65 beats 9/9 | baseline AUC 80.58 beats 9/9 (best published AUC: AOP-DRL 73.10, margin +7.48)
+  P70: baseline ACC 75.78 beats 9/9 | baseline AUC 82.55 beats 9/9 (best published AUC: ESM-2 80.65, margin +1.90)
+  P80: baseline ACC 74.36 beats 7/9 | baseline AUC 82.19 beats 9/9 (best published AUC: AOP-DRL 81.69, margin +0.50)
+  P90: baseline ACC 75.43 beats 8/9 | baseline AUC 82.59 beats 9/9 (best published AUC: AOP-DRL 82.22, margin +0.37)
+
+## Overall across 36 (model, split) cells
+  accuracy: baseline exceeds 33/36; 20/36 published values inside its 95% CI
+  AUC     : baseline exceeds 36/36; 17/36 published values inside its 95% CI
+
+  AUC is threshold-free and is not affected by the pooled/fold-averaged ambiguity,
+  so it is the cleaner comparison of the two.

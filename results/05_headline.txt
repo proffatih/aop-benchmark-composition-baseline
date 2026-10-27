@@ -1,0 +1,50 @@
+# Composition baseline vs the published AOP-vs-non-AOP tables
+
+  label = AOP vs non-AOP: 687 positives / 717 negatives  (paper states 687 / 717)
+  of the positives, FRS=676 and chelator=81  (paper states 456 / 231)
+
+## 1. Headline comparison (same folds, same label, five-fold CV)
+
+  P60:  composition LR  ACC 72.65 [70.30, 75.00]   MCC 0.454 [0.408, 0.501]   AUC 0.806 [0.783, 0.828]
+        majority-class dummy ACC 51.07
+        best published: AOP-DRL ACC 69.17 / MCC 0.38   -> baseline - best = +3.48 pp ACC, +0.074 MCC
+        baseline point estimate exceeds 6/6 published models; 0/6 published values lie inside the baseline 95% CI
+
+  P70:  composition LR  ACC 75.78 [73.58, 77.99]   MCC 0.516 [0.471, 0.560]   AUC 0.826 [0.804, 0.846]
+        majority-class dummy ACC 51.07
+        best published: AOP-DRL ACC 74.93 / MCC 0.50   -> baseline - best = +0.85 pp ACC, +0.016 MCC
+        baseline point estimate exceeds 6/6 published models; 3/6 published values lie inside the baseline 95% CI
+
+  P80:  composition LR  ACC 74.36 [72.08, 76.71]   MCC 0.487 [0.442, 0.533]   AUC 0.822 [0.800, 0.843]
+        majority-class dummy ACC 51.07
+        best published: AOP-DRL ACC 75.14 / MCC 0.50   -> baseline - best = -0.78 pp ACC, -0.013 MCC
+        baseline point estimate exceeds 5/6 published models; 6/6 published values lie inside the baseline 95% CI
+
+  P90:  composition LR  ACC 75.43 [73.08, 77.64]   MCC 0.508 [0.463, 0.553]   AUC 0.826 [0.804, 0.847]
+        majority-class dummy ACC 51.07
+        best published: AOP-DRL ACC 76.21 / MCC 0.52   -> baseline - best = -0.78 pp ACC, -0.012 MCC
+        baseline point estimate exceeds 5/6 published models; 4/6 published values lie inside the baseline 95% CI
+
+  OVERALL: baseline exceeds 22/24 published (model, split) results; 13/24 are inside its 95% CI.
+
+## 2. Sensitivity: the FRS-only label (what 'AnOxPePred-FRS' names)
+  P60: ACC 72.51  MCC 0.450  AUC 0.801
+  P70: ACC 74.79  MCC 0.495  AUC 0.819
+  P80: ACC 74.50  MCC 0.489  AUC 0.816
+  P90: ACC 74.86  MCC 0.496  AUC 0.820
+  >> the conclusion does not depend on which of the two labels is used.
+
+## 3. Internal consistency of the published table
+   AOP-DRL abstract claims accuracy gains over 'specialised models';
+   recomputed from the paper's own table (mean of AnOxPePred-FRS, UniDL4BioPep, DGAOP, ChemBERTa):
+   P60: mean specialised 64.49  AOP-DRL 69.17  -> gain 4.68 pp;  abstract states 7.26 pp  (discrepancy +2.58)
+   P70: mean specialised 73.06  AOP-DRL 74.93  -> gain 1.88 pp;  abstract states 2.57 pp  (discrepancy +0.69)
+   P80: mean specialised 73.25  AOP-DRL 75.14  -> gain 1.89 pp;  abstract states 2.59 pp  (discrepancy +0.70)
+   P90: mean specialised 73.14  AOP-DRL 76.21  -> gain 3.07 pp;  abstract states 4.20 pp  (discrepancy +1.13)
+
+## 4. Study-level leakage under the AOP label
+  n = 904 literature-sourced peptides (the 500 UniProt-derived assumed negatives excluded)
+  published folds : ACC 81.42 [78.65, 83.96]  MCC 0.430 [0.356, 0.500]  AUC 0.812 [0.776, 0.845]
+  source-disjoint : ACC 72.79 [69.80, 75.77]  MCC 0.082 [0.014, 0.154]  AUC 0.692 [0.651, 0.730]
+  drop            : ACC -8.63 pp   MCC -0.347 (-81%)   AUC -0.120
+  paired bootstrap AUC difference 0.120 [0.097, 0.144], P(diff<=0) = 0.0000

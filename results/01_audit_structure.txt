@@ -1,0 +1,71 @@
+# AnOxPePred benchmark — structural audit
+source: <repo>/data_raw/anoxpepred/repo/Data
+
+## 1. File sizes
+  01_raw         rows=  917  unique_seq=  914  cols=['Sequence', 'Source', 'FRS', 'Chelator']
+  02_processed   rows=  904  unique_seq=  904  cols=['Sequence', 'Source', 'FRS', 'Chelator']
+  02_random_neg  rows=  500  unique_seq=  500  cols=['Chelator', 'FRS', 'Sequence', 'Source']
+  marcatili      rows=  917  unique_seq=  914  cols=['Sequence', 'Source', 'FRS', 'Chelator']
+  P60            rows= 1404  unique_seq= 1404  cols=['Sequence', 'Source', 'FRS', 'Chelator', 'partition']
+  P70            rows= 1404  unique_seq= 1404  cols=['Sequence', 'Source', 'FRS', 'Chelator', 'partition']
+  P80            rows= 1404  unique_seq= 1404  cols=['Sequence', 'Source', 'FRS', 'Chelator', 'partition']
+  P90            rows= 1404  unique_seq= 1404  cols=['Sequence', 'Source', 'FRS', 'Chelator', 'partition']
+
+## 2. Partition files: same sequence set?
+  P60: n=1404  identical_to_P60=True  only_here=0  missing=0
+  P70: n=1404  identical_to_P60=True  only_here=0  missing=0
+  P80: n=1404  identical_to_P60=True  only_here=0  missing=0
+  P90: n=1404  identical_to_P60=True  only_here=0  missing=0
+
+## 3. Duplicate sequences inside each partition file
+  P60: rows=1404 unique=1404 duplicated_rows=0
+  P70: rows=1404 unique=1404 duplicated_rows=0
+  P80: rows=1404 unique=1404 duplicated_rows=0
+  P90: rows=1404 unique=1404 duplicated_rows=0
+
+## 4. Negative class composition (P60)
+  positives=687  negatives=717
+  negatives with Source == '-' (randomly generated): 500
+  negatives with a literature Source (experimental): 217
+  positives with Source == '-': 0
+
+  negative Source value counts (top 10):
+    -                                                            500
+    10.1007/s13594-015-0226-5                                    145
+    10.1021/jf021191n                                            9
+    10.4315/0362-028X-67.9.1939                                  8
+    10.1007/s00217-009-1093-1                                    6
+    10.1016/j.foodchem.2015.11.092                               6
+    10.3390/ijms161226155                                        6
+    10.1051/lait:2007019                                         6
+    10.1016/j.idairyj.2005.12.012                                5
+    10.1016/j.foodchem.2018.01.033                               4
+
+## 5. Source concentration among positives (P60)
+  distinct sources=133; top-5 cover 266/687 = 38.7%
+    10.1021/jf021191n                                            169
+    10.1021/jf950833m                                            26
+    10.1007/s13594-015-0226-5                                    24
+    10.1016/j.foodchem.2014.05.082                               24
+    10.1016/j.jff.2013.11.005                                    23
+    10.1016/j.foodchem.2014.06.113                               20
+    10.1007/s00217-008-0962-3                                    16
+    10.1021/jf101323y                                            12
+    10.1016/j.idairyj.2013.05.008                                12
+    10.1016/j.foodchem.2010.11.146                               11
+
+## 6. Fold sizes and class balance (P60)
+   fold     n   FRS+  Chel+    neg
+      0   701    367     45    328
+      1   179     82      6     97
+      2   177     78     10     97
+      3   174     75      9     98
+      4   173     74     11     97
+
+## 7. Sequence length distribution (P60)
+  min=2 max=30 mean=5.74 median=4.0
+  length<=3: 575 (41.0%)   length<=5: 892 (63.5%)
+  positives vs negatives mean length: pos=5.65  neg=5.82
+
+## 8. Non-standard residues
+  sequences with non-standard characters: 0

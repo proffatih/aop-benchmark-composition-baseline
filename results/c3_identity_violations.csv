@@ -1,0 +1,5 @@
+partitioning,threshold,cross_fold_pairs,violating_pairs,violation_rate,worst_identity,seqs_with_a_violation,n_seqs,median_max_cross_fold_identity,seqs_with_identical_twin
+P60,0.6,678120,11,1.6221317760868283e-05,0.6666666865348816,20,1404,0.3333333432674408,0
+P70,0.7,788486,1,1.2682533361404007e-06,0.8571428656578064,2,1404,0.5,0
+P80,0.8,788486,0,0.0,0.7857142686843872,0,1404,0.5,0
+P90,0.9,788486,0,0.0,0.875,0,1404,0.5,0

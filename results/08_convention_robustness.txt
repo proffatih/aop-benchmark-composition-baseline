@@ -1,0 +1,45 @@
+# Composition baseline under both scoring conventions
+
+## P60   (fold sizes [701, 179, 177, 174, 173])
+  pooled         ACC  72.65 [70.23, 75.00]   MCC 0.454   AUC 0.806
+  fold-averaged  ACC  68.85 [58.46, 79.25]   MCC 0.366   AUC 0.755   (sd across folds 8.37)
+  best published : AOP-DRL ACC 69.17
+    vs pooled         +3.48 pp   (baseline ahead; published outside baseline CI)
+    vs fold-averaged  -0.32 pp   (published ahead; published inside baseline CI)
+    models exceeded: pooled 6/6, fold-averaged 5/6
+    models inside baseline 95% CI: pooled 0/6, fold-averaged 6/6
+
+## P70   (fold sizes [281, 281, 281, 281, 280])
+  pooled         ACC  75.78 [73.50, 78.06]   MCC 0.516   AUC 0.826
+  fold-averaged  ACC  75.79 [72.06, 79.52]   MCC 0.514   AUC 0.827   (sd across folds 3.00)
+  best published : AOP-DRL ACC 74.93
+    vs pooled         +0.85 pp   (baseline ahead; published inside baseline CI)
+    vs fold-averaged  +0.86 pp   (baseline ahead; published inside baseline CI)
+    models exceeded: pooled 6/6, fold-averaged 6/6
+    models inside baseline 95% CI: pooled 3/6, fold-averaged 5/6
+
+## P80   (fold sizes [281, 281, 281, 281, 280])
+  pooled         ACC  74.36 [72.01, 76.64]   MCC 0.487   AUC 0.822
+  fold-averaged  ACC  74.36 [72.07, 76.65]   MCC 0.488   AUC 0.823   (sd across folds 1.84)
+  best published : AOP-DRL ACC 75.14
+    vs pooled         -0.78 pp   (published ahead; published inside baseline CI)
+    vs fold-averaged  -0.78 pp   (published ahead; published inside baseline CI)
+    models exceeded: pooled 5/6, fold-averaged 5/6
+    models inside baseline 95% CI: pooled 6/6, fold-averaged 6/6
+
+## P90   (fold sizes [281, 281, 281, 281, 280])
+  pooled         ACC  75.43 [73.08, 77.64]   MCC 0.508   AUC 0.826
+  fold-averaged  ACC  75.43 [70.79, 80.07]   MCC 0.509   AUC 0.826   (sd across folds 3.73)
+  best published : AOP-DRL ACC 76.21
+    vs pooled         -0.78 pp   (published ahead; published inside baseline CI)
+    vs fold-averaged  -0.78 pp   (published ahead; published inside baseline CI)
+    models exceeded: pooled 5/6, fold-averaged 5/6
+    models inside baseline 95% CI: pooled 4/6, fold-averaged 6/6
+
+## Verdict
+  pooled convention       : baseline exceeds 22/24 published results, 13/24 inside its CI
+  fold-averaged convention: baseline exceeds 21/24 published results, 23/24 inside its CI
+
+  The safe claim, true under both conventions, is that a 21-feature composition
+  model is statistically indistinguishable from the published deep models -- not
+  that it beats them.

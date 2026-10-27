@@ -1,0 +1,65 @@
+# Statistics for the composition baseline
+(bootstrap resamples = 2000)
+
+## A/B. Composition baseline vs published deep models (same folds)
+
+  P60: composition LR  ACC 72.51 [70.16, 75.00]   MCC 0.450 [0.402, 0.499]   AUC 0.801 [0.778, 0.823]
+        best published on this split: AOP-DRL ACC 69.17  -> baseline minus best = +3.34 pp   (OUTSIDE the baseline 95% CI)
+
+  P70: composition LR  ACC 74.79 [72.51, 77.14]   MCC 0.495 [0.450, 0.541]   AUC 0.819 [0.797, 0.840]
+        best published on this split: AOP-DRL ACC 74.93  -> baseline minus best = -0.14 pp   (inside the baseline 95% CI)
+
+  P80: composition LR  ACC 74.50 [72.29, 76.85]   MCC 0.489 [0.444, 0.536]   AUC 0.816 [0.793, 0.837]
+        best published on this split: AOP-DRL ACC 75.14  -> baseline minus best = -0.64 pp   (inside the baseline 95% CI)
+
+  P90: composition LR  ACC 74.86 [72.58, 77.14]   MCC 0.496 [0.451, 0.542]   AUC 0.820 [0.798, 0.841]
+        best published on this split: AOP-DRL ACC 76.21  -> baseline minus best = -1.35 pp   (inside the baseline 95% CI)
+
+  summary: baseline point estimate beats 20/24 published (model, split) results;
+           15/24 published values fall inside the baseline's 95% CI (i.e. indistinguishable).
+
+## C. Ceiling check: can stronger models beat 21-feature composition? (P60)
+   label = AOP vs non-AOP, matching the published comparison tables
+  model                         ACC%             95% CI     MCC     AUC
+  majority dummy               51.07     [48.58, 53.60]   0.000   0.500
+  composition LR (21)          72.65     [70.23, 75.07]   0.454   0.806
+  composition SVM-rbf          65.74     [63.03, 68.20]   0.320   0.736
+  composition RF               68.09     [65.67, 70.37]   0.368   0.748
+  composition GBDT             65.81     [63.18, 67.99]   0.319   0.730
+  dipeptide LR (400)           59.62     [57.05, 61.93]   0.192   0.632
+  comp+dipeptide LR (421)      60.68     [58.12, 63.03]   0.213   0.640
+  comp+dipeptide RF            68.09     [65.63, 70.30]   0.371   0.774
+
+  >> order information (dipeptides) adds nothing the 21 composition features do not already carry.
+
+## D. What did the model learn?
+  logistic-regression coefficients, standardised features (top 6 / bottom 6):
+    +0.901  Y
+    +0.844  H
+    +0.655  W
+    +0.201  P
+    +0.082  C
+    +-0.007  F
+    ...
+    -0.313  K
+    -0.315  I
+    -0.327  D
+    -0.348  R
+    -0.361  T
+    -0.396  S
+
+  classical radical-scavenging residues (Tyr, Trp, His, Cys, Met): ['C', 'H', 'M', 'W', 'Y']
+  top-5 positive coefficients: ['C', 'H', 'P', 'W', 'Y']
+  overlap: ['C', 'H', 'W', 'Y']  (4/5)
+
+  >> the signal the deep models are competing for is the aromatic/His residue count,
+  >> i.e. textbook hydrogen-atom-transfer chemistry, not a learned sequence grammar.
+
+## E. Study-level leakage: effect size with CIs and a permutation test
+  published folds   : ACC 80.31 [77.43, 82.85]  MCC 0.413 [0.341, 0.483]  AUC 0.781 [0.745, 0.815]
+  source-disjoint   : ACC 71.57 [68.47, 74.56]  MCC 0.092 [0.022, 0.164]  AUC 0.652 [0.612, 0.694]
+  drop              : ACC -8.74 pp   MCC -0.322 (-78%)   AUC -0.128
+  paired bootstrap of the AUC difference: 0.128 [0.107, 0.148], P(diff<=0) = 0.0000
+
+  >> identical data, identical model, identical hyper-parameters;
+  >> the only change is whether a source paper may span train and test.

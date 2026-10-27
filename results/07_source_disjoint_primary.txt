@@ -1,0 +1,49 @@
+# Source-disjoint evaluation, primary (balanced) design
+
+## Design A: full benchmark (balanced)
+  n = 1404, positive rate 0.489, distinct groups 633
+
+  per-fold detail
+    scheme             fold     n  pos_rate     AUC    ACC%
+    published             0   701     0.532   0.859   79.03
+    published             1   179     0.458   0.645   58.10
+    published             2   177     0.452   0.788   75.14
+    published             3   174     0.437   0.743   64.37
+    published             4   173     0.439   0.738   67.63
+    source-disjoint       0   281     0.633   0.918   83.63
+    source-disjoint       1   281     0.117   0.748   76.87
+    source-disjoint       2   281     0.594   0.786   68.68
+    source-disjoint       3   281     0.569   0.717   64.77
+    source-disjoint       4   280     0.532   0.713   60.36
+
+    mean per-fold AUC: published 0.755 (sd 0.078)  vs source-disjoint 0.776 (sd 0.084)
+    pooled: AUC 0.806 -> 0.783 (-0.023);  MCC 0.454 -> 0.419 (-0.035);  ACC 72.65 -> 70.87 (-1.78 pp)
+    paired bootstrap AUC difference +0.023 [+0.014, +0.032], P(diff<=0) = 0.0000
+    placebo null (matched group sizes, 500 draws): mean -0.0177 [-0.0215, -0.0132]
+    observed +0.0232 -> p = 0.0000  (SURVIVES)
+
+## Design B: literature-derived only
+  n = 904, positive rate 0.760, distinct groups 133
+
+  per-fold detail
+    scheme             fold     n  pos_rate     AUC    ACC%
+    published             0   533     0.700   0.855   80.30
+    published             1    97     0.845   0.641   78.35
+    published             2    91     0.879   0.810   85.71
+    published             3    92     0.826   0.869   84.78
+    published             4    91     0.835   0.630   83.52
+    source-disjoint       0   181     0.950   0.687   94.48
+    source-disjoint       1   181     0.199   0.861   28.18
+    source-disjoint       2   181     0.961   0.840   90.61
+    source-disjoint       3   181     0.834   0.627   78.45
+    source-disjoint       4   180     0.856   0.639   72.22
+
+    mean per-fold AUC: published 0.761 (sd 0.117)  vs source-disjoint 0.731 (sd 0.112)
+    pooled: AUC 0.812 -> 0.692 (-0.120);  MCC 0.430 -> 0.082 (-0.347);  ACC 81.42 -> 72.79 (-8.63 pp)
+    paired bootstrap AUC difference +0.120 [+0.097, +0.144], P(diff<=0) = 0.0000
+    placebo null (matched group sizes, 500 draws): mean -0.0521 [-0.0581, -0.0450]
+    observed +0.1201 -> p = 0.0000  (SURVIVES)
+
+## Single-class source blocks
+  113/133 source papers contribute one class only (384/904 peptides)
+  largest single source block: 178 peptides from 10.1021/jf021191n

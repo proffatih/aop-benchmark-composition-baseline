@@ -1,0 +1,65 @@
+# Three leakage channels in the AnOxPePred benchmark
+
+## C1. Is the negative class an artefact?
+
+  positives=687  negatives=717  (random=500, experimental=217)
+
+  C1a. composition-only logistic regression, positives vs ALL negatives
+       AUC = 0.825 +/- 0.027
+  C1b. positives vs RANDOM negatives only  (the easy half)
+       AUC = 0.821 +/- 0.030
+  C1c. positives vs EXPERIMENTAL negatives only  (the honest half)
+       AUC = 0.865 +/- 0.012
+  C1d. random negatives vs experimental negatives  (SAME label - should be AUC~0.5)
+       AUC = 0.770 +/- 0.032
+
+  >> the two negative sub-populations are separable at AUC 0.770;
+  >> performance against random negatives (0.821) vs experimental (0.865) differs by -0.044 AUC on identical features.
+
+  C1e. amino-acid composition, mean frequency (%) by group
+       Y  pos=11.88  rand= 3.16  exp= 1.48   delta(pos-rand)=+8.72
+       H  pos= 9.27  rand= 2.21  exp= 0.82   delta(pos-rand)=+7.06
+       P  pos= 9.31  rand= 4.25  exp= 7.53   delta(pos-rand)=+5.06
+       W  pos= 5.37  rand= 0.94  exp= 2.11   delta(pos-rand)=+4.43
+       S  pos= 3.12  rand= 6.14  exp= 4.82   delta(pos-rand)=-3.02
+       K  pos= 3.79  rand= 6.44  exp= 8.32   delta(pos-rand)=-2.65
+       I  pos= 3.18  rand= 5.82  exp= 5.56   delta(pos-rand)=-2.64
+       A  pos= 5.03  rand= 7.61  exp=10.06   delta(pos-rand)=-2.58
+
+## C2. Study-level (source DOI) leakage across folds
+
+  P60: of 904 literature-sourced peptides, 613 (67.8%) sit in a test fold whose source paper also appears in training
+  P70: of 904 literature-sourced peptides, 854 (94.5%) sit in a test fold whose source paper also appears in training
+  P80: of 904 literature-sourced peptides, 859 (95.0%) sit in a test fold whose source paper also appears in training
+  P90: of 904 literature-sourced peptides, 864 (95.6%) sit in a test fold whose source paper also appears in training
+
+  source blocks: 133 papers; largest contributes 178 peptides (12.7% of the whole benchmark)
+  papers contributing >=10 peptides: 16  covering 570 peptides (40.6%)
+
+  spread of the single largest source across folds (P60):
+    DOI 10.1021/jf021191n  n=178
+    fold distribution: {0: 178}
+
+## C3. Does the stated identity threshold actually hold between folds?
+
+  computing 984,906 pairwise identities ...
+  [written] results/identity_matrix.npy
+
+  P60 (threshold 0.60): 11 / 678,120 cross-fold pairs exceed it (0.00%); worst=0.67
+        sequences with >=1 cross-fold neighbour above threshold: 20/1404 (1.4%)
+        sequences with a 100%-identity cross-fold neighbour (substring/exact): 0
+        median of per-sequence max cross-fold identity: 0.333
+  P70 (threshold 0.70): 1 / 788,486 cross-fold pairs exceed it (0.00%); worst=0.86
+        sequences with >=1 cross-fold neighbour above threshold: 2/1404 (0.1%)
+        sequences with a 100%-identity cross-fold neighbour (substring/exact): 0
+        median of per-sequence max cross-fold identity: 0.500
+  P80 (threshold 0.80): 0 / 788,486 cross-fold pairs exceed it (0.00%); worst=0.79
+        sequences with >=1 cross-fold neighbour above threshold: 0/1404 (0.0%)
+        sequences with a 100%-identity cross-fold neighbour (substring/exact): 0
+        median of per-sequence max cross-fold identity: 0.500
+  P90 (threshold 0.90): 0 / 788,486 cross-fold pairs exceed it (0.00%); worst=0.88
+        sequences with >=1 cross-fold neighbour above threshold: 0/1404 (0.0%)
+        sequences with a 100%-identity cross-fold neighbour (substring/exact): 0
+        median of per-sequence max cross-fold identity: 0.500
+
+  [written] results/c3_identity_violations.csv
