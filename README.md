@@ -83,9 +83,17 @@ regression solver is stable across recent versions, but pin the above for exact 
 
 ## Licensing
 
-Code is released under the MIT licence (`LICENSE`). `release/aop_source_disjoint_splits.csv`
-is a derived work of the AnOxPePred distribution and remains under that project's terms; the
-two columns we add (`group`, `fold_source_disjoint`) are released under CC0 1.0.
+Code is released under the MIT licence (`LICENSE`).
+
+`release/aop_source_disjoint_splits.csv` is a derived work of the AnOxPePred benchmark. That
+benchmark is published as Supplementary Data S1 of Olsen TH, et al., *Sci Rep* **10**:21471
+(2020), doi:[10.1038/s41598-020-78319-w](https://doi.org/10.1038/s41598-020-78319-w), an open
+access article under the **Creative Commons Attribution 4.0 International licence**, which
+permits sharing and adaptation in any medium with attribution. We redistribute the derived file
+under the same CC BY 4.0 terms, attributing Olsen et al. as the source of the sequences, labels
+and published partitions. The two columns we add (`group`, `fold_source_disjoint`) are released
+under CC0 1.0. Note that the upstream GitHub repository itself carries no licence file; the
+licence above comes from the publication, which is where the dataset is formally released.
 
 ## Note on scope
 
